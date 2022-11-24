@@ -54,7 +54,7 @@ jobs:
             gem install rubocop-rails -v 2.17
             gem install rubocop-shopify -v 2.10.1
             gem install rubocop-performance -v 1.15.1
-            rubocop --parallel --config .rubocop.yml --format json --out .reports/app/rubocop.json
+            rubocop --parallel --config .rubocop.yaml --format json --out .reports/app/rubocop.json
       - sonarcloud/scan
 
 workflows:

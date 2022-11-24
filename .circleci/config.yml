@@ -46,6 +46,10 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run:
+          name: Run rubocop
+          command: |
+            rubocop --parallel --config .rubocop.yml --format json --out .reports/app/rubocop.json
       - sonarcloud/scan
 
 workflows:

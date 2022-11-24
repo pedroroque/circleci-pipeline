@@ -1,0 +1,119 @@
+# CONFIG
+require:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - '.git/**/*'
+    - 'docker/**/*'
+  NewCops: enable
+  TargetRubyVersion: 2.7.6
+  SuggestExtensions: false
+
+# STYLE
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/MethodCallWithArgsParentheses:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false # TODO: enable after auto-correct
+  # EnforcedStyle: compact
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: no_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: no_comma
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: single_quotes
+
+Style/OpenStructUse:
+  Exclude:
+    - 'spec/**/*'
+
+Style/ClassMethodsDefinitions:
+  EnforcedStyle: def_self
+
+# LAYOUT
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_first_argument
+
+Layout/LineEndStringConcatenationIndentation:
+  EnforcedStyle: aligned
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: aligned
+  IndentationWidth: ~
+
+Layout/HashAlignment:
+  EnforcedHashRocketStyle:
+    - table
+    - key
+  EnforcedColonStyle:
+    - table
+    - key
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: aligned
+
+# RSPEC
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Max: 15
+
+RSpec/MessageChain:
+  Enabled: false
+
+RSpec/HookArgument:
+  Enabled: false
+
+# LINT
+Lint/MissingSuper:
+  Exclude:
+    - 'app/services/**/*'
+    - 'app/policies/**/*'
+
+# RAILS
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'spec/**/*'
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - staging
+
+# in config/initializers/new_framework_defaults.rb we have the following line
+# Rails.application.config.active_record.belongs_to_required_by_default = false
+# that makes this rule invalid
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: false

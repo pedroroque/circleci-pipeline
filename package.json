@@ -1,0 +1,5 @@
+{
+  "name": "circleci-pipeline",
+  "private": true,
+  "dependencies": {}
+}

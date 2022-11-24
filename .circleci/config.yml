@@ -29,8 +29,6 @@ jobs:
     working_directory: << pipeline.parameters.root_folder >>
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: yarn
       - ruby/install-deps
       - run:
           name: Install foreman
@@ -44,5 +42,5 @@ jobs:
 workflows:
   main:
     jobs:
-      - build:
-          context: SonarCloud
+      - build
+          # context: SonarCloud

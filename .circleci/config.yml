@@ -1,0 +1,48 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7
+  ruby: circleci/ruby@1.8.0
+  sonarcloud: sonarsource/sonarcloud@1.0.3
+
+parameters:
+  node_version:
+    type: string
+    default: "16.10"
+  ruby_version:
+    type: string
+    default: "2.7.6"
+  postgres_version:
+    type: string
+    default: "11.15"
+  root_folder:
+    type: string
+    default: ~/circleci-pipeline
+  deploy_folder:
+    type: string
+    default: ~/circleci-pipeline/.deployment
+
+jobs:
+  build:
+    docker:
+      - image: cimg/ruby:<< pipeline.parameters.ruby_version >>-node
+    working_directory: << pipeline.parameters.root_folder >>
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - ruby/install-deps
+      - run:
+          name: Install foreman
+          command: |
+            gem install foreman
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+workflows:
+  main:
+    jobs:
+      - build:
+          context: SonarCloud

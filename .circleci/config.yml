@@ -39,8 +39,22 @@ jobs:
           paths:
             - .
 
+  code_quality:
+    docker:
+      - image: cimg/ruby:<< pipeline.parameters.ruby_version >>-node
+    working_directory: << pipeline.parameters.root_folder >>
+    steps:
+      - attach_workspace:
+          at: .
+      - sonarcloud/scan
+
 workflows:
   main:
     jobs:
       - build
           # context: SonarCloud
+
+      - code_quality:
+          context: SonarCloud
+          requires:
+            - build

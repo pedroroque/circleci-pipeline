@@ -50,9 +50,7 @@ jobs:
       - run:
           name: Run RSpec
           command: |
-            gem install spring
-            gem install spring-commands-rspec
-            spring rspec
+            bundle exec rspec
 
   code_quality:
     docker:

@@ -115,7 +115,7 @@ jobs:
       - persist_to_workspace:
           root: coverage
           paths:
-            - coverage
+            - .
 
   code_quality:
     docker:

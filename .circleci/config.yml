@@ -20,7 +20,7 @@ parameters:
     default: "circleci-pipeline_test"
   db_user:
     type: string
-    default: "circle_test"
+    default: "postgres"
   root_folder:
     type: string
     default: ~/circleci-pipeline

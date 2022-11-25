@@ -48,6 +48,7 @@ commands:
           name: Prepare DB
           command: |
             sudo apt install lsof
+            ls
             cp ./.circleci/db_config.yml ./config/database.yml
   
   wait_db:

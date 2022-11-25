@@ -28,6 +28,29 @@ parameters:
     type: string
     default: ~/circleci-pipeline/.deployment
 
+commands:
+  prepare_db:
+    description: Prepare DB to be used for tests
+    steps:
+      - run:
+          name: Prepare DB
+          command: |
+            sudo apt install lsof
+            cp ./.circleci/db_config.yml ./config/database.yml
+  wait_db:
+    description: Wait for DB to be ready
+    steps:
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+  setup_db:
+    description: Setup DB
+    steps:
+      - run:
+          name: Setup DB
+          command: |
+            bundle exec rake db:drop db:setup
+            bundle exec rake db:create db:schema:load --trace
 jobs:
   build:
     docker:
@@ -70,6 +93,9 @@ jobs:
       - attach_workspace:
           at: << pipeline.parameters.root_folder >>
       - ruby/install-deps
+      - prepare_db
+      - wait_db
+      - setup_db
       - run:
           name: Run RSpec
           command: |

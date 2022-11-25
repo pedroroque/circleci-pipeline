@@ -28,3 +28,4 @@
 
 # Ignore code analysis and coverage reports
 /.reports
+coverage

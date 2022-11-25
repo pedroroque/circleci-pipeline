@@ -57,5 +57,12 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 end
 
+group :test do
+  gem 'simplecov', '~> 0.21.2'
+  gem 'simplecov-json', '~> 0.2'
+  gem 'simplecov-lcov', '~> 0.7.0'
+  gem 'simplecov-html', '~> 0.12.3'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

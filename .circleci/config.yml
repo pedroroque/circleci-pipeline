@@ -39,6 +39,19 @@ jobs:
           paths:
             - .
 
+  rspec:
+    docker:
+      - image: cimg/ruby:<< pipeline.parameters.ruby_version >>-node
+    working_directory: << pipeline.parameters.root_folder >>
+    steps:
+      - attach_workspace:
+          at: << pipeline.parameters.root_folder >>
+      - ruby/install-deps
+      - run:
+          name: Run RSpec
+          command: |
+            bundle exec rspec
+
   code_quality:
     docker:
       - image: cimg/ruby:<< pipeline.parameters.ruby_version >>-node
@@ -62,7 +75,11 @@ workflows:
     jobs:
       - build
 
+      - rspec:
+          requires:
+            - build
+
       - code_quality:
           context: SonarCloud
           requires:
-            - build
+            - rspec

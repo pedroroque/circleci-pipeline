@@ -36,10 +36,6 @@ commands:
           name: Install dependencies
           command: |
             sudo apt update
-            sudo apt install -y wkhtmltopdf imagemagick libnss3-dev libgtk2.0-0 libgtk-3-0 \
-                libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
-            sudo ln /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
-            sudo chmod +x /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
   
   prepare_db:
     description: Prepare DB to be used for tests
@@ -71,17 +67,6 @@ jobs:
     docker:
       - image: cimg/ruby:<< pipeline.parameters.ruby_version >>-node
     working_directory: << pipeline.parameters.root_folder >>
-    environment:
-      BUNDLE_JOBS: "4"
-      BUNDLE_RETRY: "3"
-      TZ: "/usr/share/zoneinfo/America/Chicago"
-      RAILS_ENV: test
-      PGHOST: 127.0.0.1
-      PGPASSWORD: ""
-      PGUSER: << pipeline.parameters.db_user >>
-      DB_host: 127.0.0.1
-      DB_user: << pipeline.parameters.db_user >>
-      DB_name: << pipeline.parameters.db_name >>
     steps:
       - checkout
       - ruby/install-deps
@@ -104,6 +89,17 @@ jobs:
           POSTGRES_USER: << pipeline.parameters.db_user >>
           POSTGRES_PASSWORD: ""
     working_directory: << pipeline.parameters.root_folder >>
+    environment:
+      BUNDLE_JOBS: "4"
+      BUNDLE_RETRY: "3"
+      TZ: "/usr/share/zoneinfo/America/Chicago"
+      RAILS_ENV: test
+      PGHOST: 127.0.0.1
+      PGPASSWORD: ""
+      PGUSER: << pipeline.parameters.db_user >>
+      DB_host: 127.0.0.1
+      DB_user: << pipeline.parameters.db_user >>
+      DB_name: << pipeline.parameters.db_name >>
     steps:
       - attach_workspace:
           at: << pipeline.parameters.root_folder >>

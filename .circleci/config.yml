@@ -29,6 +29,18 @@ parameters:
     default: ~/circleci-pipeline/.deployment
 
 commands:
+  install_deps:
+    description: Install dependency packages
+    steps:
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt update
+            sudo apt install -y wkhtmltopdf imagemagick libnss3-dev libgtk2.0-0 libgtk-3-0 \
+                libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+            sudo ln /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
+            sudo chmod +x /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
+  
   prepare_db:
     description: Prepare DB to be used for tests
     steps:
@@ -37,12 +49,14 @@ commands:
           command: |
             sudo apt install lsof
             cp ./.circleci/db_config.yml ./config/database.yml
+  
   wait_db:
     description: Wait for DB to be ready
     steps:
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
+  
   setup_db:
     description: Setup DB
     steps:
@@ -92,6 +106,7 @@ jobs:
     steps:
       - attach_workspace:
           at: << pipeline.parameters.root_folder >>
+      - install_deps
       - ruby/install-deps
       - prepare_db
       - wait_db

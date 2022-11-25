@@ -50,6 +50,8 @@ jobs:
       - run:
           name: Run RSpec
           command: |
+            gem install spring
+            gem install spring-commands-rspec
             spring rspec
 
   code_quality:

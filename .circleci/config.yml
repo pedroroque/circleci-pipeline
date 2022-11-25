@@ -133,11 +133,11 @@ jobs:
             gem install rubocop-shopify -v 2.10.1
             gem install rubocop-performance -v 1.15.1
             rubocop --parallel --config .rubocop.yaml --format json --out .reports/app/rubocop.json || true
-      - run:
-          name: ESLint
-          command: |
-            yarn eslint --ext .js,.jsx,.ts,.tsx front_end --format json -o reports/eslint_frontend.json
-            yarn eslint --ext .js,.jsx,.ts,.tsx cypress --format json -o reports/eslint_frontend.json
+      # - run:
+      #     name: ESLint
+      #     command: |
+      #       yarn eslint --ext .js,.jsx,.ts,.tsx front_end --format json -o reports/eslint_frontend.json
+      #       yarn eslint --ext .js,.jsx,.ts,.tsx cypress --format json -o reports/eslint_frontend.json
       - sonarcloud/scan
 
 workflows:

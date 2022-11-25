@@ -113,7 +113,7 @@ jobs:
           command: |
             bundle exec rspec
       - persist_to_workspace:
-          root: ./coverage/
+          root: ./coverage/*
           paths:
             - ./coverage
 

@@ -113,9 +113,9 @@ jobs:
           command: |
             bundle exec rspec
       - persist_to_workspace:
-          root: coverage
+          root: .
           paths:
-            - .
+            - coverage
 
   code_quality:
     docker:

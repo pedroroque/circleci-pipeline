@@ -50,7 +50,7 @@ jobs:
       - run:
           name: Run RSpec
           command: |
-            bundle exec rspec
+            spring rspec
 
   code_quality:
     docker:

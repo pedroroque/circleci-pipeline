@@ -112,6 +112,10 @@ jobs:
           name: Run RSpec
           command: |
             bundle exec rspec
+      - store_to_workspace:
+          root: ./coverage
+          paths:
+            - ./coverage
 
   code_quality:
     docker:

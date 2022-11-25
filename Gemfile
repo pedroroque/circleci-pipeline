@@ -59,9 +59,9 @@ end
 
 group :test do
   gem 'simplecov', '~> 0.21.2'
-  gem 'simplecov-json', '~> 0.2'
-  gem 'simplecov-lcov', '~> 0.7.0'
   gem 'simplecov-html', '~> 0.12.3'
+  gem 'simplecov_json_formatter', '~> 0.1.4'
+  gem 'simplecov-lcov', '~> 0.7.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
